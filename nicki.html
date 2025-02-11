@@ -109,12 +109,9 @@
     <script>
         const music = document.getElementById("music");
 
-// Verifica si la música estaba en reproducción en la página anterior
+// Verificar si la música estaba en reproducción en la página anterior
 if (localStorage.getItem("isMusicPlaying") === "true") {
-    // Espera unos segundos antes de comenzar a reproducir la música
-    setTimeout(() => {
-        music.play();  // Reproduce la música después del tiempo indicado
-    }, 66000);  // 3000 milisegundos = 3 segundos (ajustar el tiempo según desees)
+    music.play();  // Continúa la música si estaba en reproducción
 }
 
 // Añadir un evento para que la música continúe aunque se navegue
