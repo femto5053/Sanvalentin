@@ -100,13 +100,21 @@
     </div>
     <button class="btn yes-btn">Sí</button>
     <button class="btn no-btn">No deseo</button>
- 
+    <audio id="background-audio" autoplay loop>
+        <source src="song1.mp3" type="audio/mp3">
+        <source src="song1.ogv" type="audio/ogg">
+        Tu navegador no es compatible con HTML5.
+    </audio>
+
     <script>
         const music = document.getElementById("music");
 
-// Verificar si la música estaba en reproducción en la página anterior
+// Verifica si la música estaba en reproducción en la página anterior
 if (localStorage.getItem("isMusicPlaying") === "true") {
-    music.play();  // Continúa la música si estaba en reproducción
+    // Espera unos segundos antes de comenzar a reproducir la música
+    setTimeout(() => {
+        music.play();  // Reproduce la música después del tiempo indicado
+    }, 66000);  // 3000 milisegundos = 3 segundos (ajustar el tiempo según desees)
 }
 
 // Añadir un evento para que la música continúe aunque se navegue
