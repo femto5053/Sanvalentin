@@ -114,6 +114,13 @@
 if (localStorage.getItem("isMusicPlaying") === "true") {
     music.play();  // Continúa la música si estaba en reproducción
 }
+
+// Añadir un evento para que la música continúe aunque se navegue
+window.addEventListener("beforeunload", () => {
+    if (!music.paused) {
+        localStorage.setItem("isMusicPlaying", "true"); // Guarda el estado
+    }
+});
         const yesButton = document.querySelector('.yes-btn');
         const noButton = document.querySelector('.no-btn');
         const question = document.querySelector('h1');
