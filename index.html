@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FELIZ SAN VALENTIN</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    <div class="container">
+        <h1>¡Atrapa a Pen^2! 🐧</h1>
+        <p>Debes capturar 33 Pen^2 para avanzar</p>
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <p class="counter">Corazones capturados: <span id="score">0</span>/33</p>
+        
+        <div id="game-area"></div>
+    </div>
+
+    <canvas id="particles"></canvas>
+
+    <script src="script2.js"></script>
+    <audio id="background-music" autoplay loop>
+        <source src="song1.mp3" type="audio/mp3">
+        Tu navegador no soporta audio HTML5.
+    </audio>
+</body>
+<script>
+     const music = document.getElementById("music");
+
+// Inicia la música y la guarda en localStorage
+function startMusic() {
+    music.play();
+    localStorage.setItem("isMusicPlaying", "true"); // Guarda el estado de la música
+    }
+
+// Detener la música cuando se navega fuera
+window.addEventListener("beforeunload", () => {
+    localStorage.removeItem("isMusicPlaying");
+    });
+    document.addEventListener("click", function() {
+        let music = document.getElementById("background-music");
+        if (music.paused) {
+            music.play();
+        }
+    }, { once: true }); // Solo se ejecuta una vez
+</script>
+</html>

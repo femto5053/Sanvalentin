@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        body {
+            background-color: #FEA8C5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Georgia, serif;
+            font-style: italic;
+            text-align: center;
+        }
+        h1 {
+            color: #d46a85;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .jpg-container {
+            margin: 60px 0;
+        }
+        .jpg-container img {
+            width: 360px;
+            height: auto;
+        }
+        .btn {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        .yes-btn {
+            background-color: green;
+            color: white;
+            transition: font-size 0.3s ease;
+        }
+        .no-btn {
+            background-color: orangered;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        .full-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #F1BFF6;
+            overflow: hidden;
+        }
+        .full-screen img {
+            max-width: 250px;  /* Limita el ancho máximo a un 80% del ancho de la pantalla */
+            max-height: 250px; /* Limita la altura máxima a un 80% de la altura de la pantalla */
+            object-fit: cover;  /* Asegura que la imagen se ajuste sin distorsionarse */
+            margin: 10px;  /* Añade un pequeño espacio entre los elementos */
+        }
+        .expanded-yes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            font-size: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-text {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1.5rem;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        audio {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>¿Quieres ser mi San Valentín?</h1>
+    <div class="jpg-container">
+        <img src="valentine.jpg" alt="Happy Bear">
+    </div>
+    <button class="btn yes-btn">Sí</button>
+    <button class="btn no-btn">No deseo</button>
+    <br> Musiquita:<br>
+    <audio id="background-audio" autoplay loop>
+        <source src="song1.mp3" type="audio/mp3">
+        <source src="song1.ogv" type="audio/ogg">
+        Tu navegador no es compatible con HTML5.
+    </audio>
+
+    <script>
+        const music = document.getElementById("music");
+
+// Verificar si la música estaba en reproducción en la página anterior
+if (localStorage.getItem("isMusicPlaying") === "true") {
+    music.play();  // Continúa la música si estaba en reproducción
+}
+        const yesButton = document.querySelector('.yes-btn');
+        const noButton = document.querySelector('.no-btn');
+        const question = document.querySelector('h1');
+        const jpgContainer = document.querySelector('.jpg-container img');
+        const audio = document.getElementById('background-audio'); // Se asegura de que usamos el mismo elemento de audio
+        let noClickCount = 0;
+        const noTexts = [
+            "¿Estás segura?",
+            "Piénsalo de nuevo...",
+            "Se está rompiendo mi corazoncito :c",
+            "Una oportunidad más",
+            "¿Y si te dijera que tengo chocolates?",
+            "Wa llorar :c",
+            "Toy llorando :c"
+        ];
+        const gifs = [
+            "gif1.gif",
+            "gif2.gif",
+            "gif3.gif",
+            "gif4.gif",
+            "gif5.gif",
+            "gif6.gif",
+            "gif7.gif"
+        ];
+        audio.addEventListener('loadeddata', function () {
+            audio.currentTime = 5;  // Comienza desde el segundo 1
+        });
+
+        noButton.addEventListener('click', () => {
+            if (noClickCount < noTexts.length) {
+                noButton.textContent = noTexts[noClickCount];
+                yesButton.style.fontSize = `${1.5 + noClickCount * 5}rem`;
+                jpgContainer.src = gifs[noClickCount % gifs.length];
+                noClickCount++;
+            } else {
+                yesButton.classList.add('expanded-yes');
+                yesButton.textContent = "SÍ";
+                question.classList.add('hidden');
+                jpgContainer.classList.add('hidden');
+                noButton.classList.add('hidden');
+            }
+        });
+
+        yesButton.addEventListener('click', () => {
+            audio.pause(); // Pausa la música al hacer clic en "Sí"
+
+            // Evitar reemplazar todo el cuerpo
+            const fullScreen = document.createElement('div');
+            fullScreen.classList.add('full-screen');
+
+            // Insertar los GIFs y la información adicional
+            fullScreen.innerHTML = `
+                <img src="gif8.gif" alt="GIF 1">
+                <img src="gif9.gif" alt="GIF 2">
+                <img src="gif10.gif" alt="GIF 3">
+                <img src="gif11.gif" alt="GIF Dog">
+                <div class="footer-text">Tal vez llegaste aquí por curiosidad, pero 
+                    ¡Si de verdad pusiste sí, envíame un 🐧 al wasa xd!</div>
+            `;
+            
+            // Insertamos la nueva sección en el cuerpo, sin borrar el audio
+            document.body.appendChild(fullScreen);
+
+            // Reproducimos la música nuevamente
+            audio.play();
+            audio.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
